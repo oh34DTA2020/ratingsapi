@@ -1,11 +1,16 @@
 # This workflows will upload a Python Package using Twine when a release is created
 # For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
 
-name: Upload Python Package
+name: CreateRatings
 
 on:
   release:
     types: [created]
+
+env:
+  AZURE_FUNCTIONAPP_NAME: createRating # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './CreateRating/'   # set this to the path to your web app project, defaults to the repository root
+  PYTHON_VERSION: '3.8'                 # set this to the python version to use (supports 3.6, 3.7, 3.8)
 
 jobs:
   deploy:
