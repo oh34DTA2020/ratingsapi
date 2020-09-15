@@ -2,8 +2,8 @@
 name: CreateRatings
 
 on:
-  release:
-    types: [created]
+  # Only run manually
+  workflow_dispatch:
 
 env:
   AZURE_FUNCTIONAPP_NAME: createRating # set this to your application's name
