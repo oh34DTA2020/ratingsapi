@@ -1,4 +1,4 @@
-name: Deploy createRatings
+name: Deploy createRatings1
 on:
   #[push]
     workflow_dispatch:
