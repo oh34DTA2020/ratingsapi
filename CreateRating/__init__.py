@@ -1,6 +1,9 @@
 import logging
 import requests
+import os
 import uuid
+import json
+from azure.cosmos import exceptions, CosmosClient, PartitionKey
 from datetime import datetime,timezone
 
 import azure.functions as func
@@ -14,6 +17,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     locationName = req.params.get('locationName')
     rating = req.params.get('rating')
     userNotes = req.params.get('userNotes')
+
 
     # Validate both userId and productId by calling the existing API endpoints. You can find a user id to test with from the sample payload above
     uidurl = "https://serverlessohuser.trafficmanager.net/api/GetUser"
@@ -33,11 +37,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info('Product Not Found.')
 
     # Add a property called id with a GUID value
+
     id = uuid.uuid4()
 
     logging.info(id)
-    
+
     # Add a property called timestamp with the current UTC date time
+
     timestamp = datetime.now(timezone.utc)
 
     logging.info(timestamp)
@@ -62,7 +68,25 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 
     # Use a data service to store the ratings information to the backend
+
+    # Initialize the Cosmos client
+    endpoint = os.environ["cosmosendpoint"]
+    key = os.environ["cosmoskey"]
+
+    logging.info(key)
+
+    # <create_cosmos_client>
+    client = CosmosClient(endpoint, key)
+    # </create_cosmos_client>
+
     # Return the entire review JSON payload with the newly created id and timestamp
+
+    data = {"id": str(id), "userId": userId, "productId": productId, "timestamp": str(timestamp), 
+    "locationName": locationName, "rating": rating, "userNotes": userNotes}
+
+    json_data = json.dumps(data)
+
+    logging.info(json_data)
 
     
     if userId:
