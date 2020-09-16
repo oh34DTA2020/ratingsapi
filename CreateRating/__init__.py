@@ -26,7 +26,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if response1:
         logging.info('Success User Found!')
     else:
-        logging.info('User Not Found.')
+        return func.HttpResponse("User Not Found",status_code=404)
+
     
     produrl = "https://serverlessohproduct.trafficmanager.net/api/GetProduct"
     response2 = requests.get(produrl, params={'productId': productId})
@@ -34,7 +35,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if response2:
         logging.info('Success Product Found!')
     else:
-        logging.info('Product Not Found.')
+        return func.HttpResponse("Product Not Found",status_code=404)
 
     # Add a property called id with a GUID value
 
@@ -60,11 +61,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             if rating > 0 and rating <= 5:
                 logging.info('Rating is a VALID')
             else:
-                logging.info('Rating is INVALID')
+                return func.HttpResponse("Bad Rating",status_code=404)
         else:
-            logging.info('Rating is NOT a number')
+            return func.HttpResponse("Bad Rating",status_code=404)
     else:
-        logging.info('Missing Rating')
+        return func.HttpResponse("Missing Rating",status_code=404)
 
 
     # Use a data service to store the ratings information to the backend
@@ -97,7 +98,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     
     if userId:
-        return func.HttpResponse(f"Hello, {userId}. This HTTP triggered function executed successfully.")
+        return func.HttpResponse(json_data)
     else:
         return func.HttpResponse(
              f"response : {x}",
