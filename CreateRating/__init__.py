@@ -43,6 +43,24 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info(timestamp)
 
     # Validate that the rating field is an integer from 0 to 5
+    if rating:
+        if rating.isdigit():
+            logging.info('Rating is a number')
+            logging.info(type(rating))
+            #RECAST
+            rating = int(rating)
+            logging.info(type(rating))
+
+            if rating > 0 and rating <= 5:
+                logging.info('Rating is a VALID')
+            else:
+                logging.info('Rating is INVALID')
+        else:
+            logging.info('Rating is NOT a number')
+    else:
+        logging.info('Missing Rating')
+
+
     # Use a data service to store the ratings information to the backend
     # Return the entire review JSON payload with the newly created id and timestamp
 
