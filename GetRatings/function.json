@@ -9,7 +9,8 @@
       "methods": [
         "get",
         "post"
-      ]
+      ],
+      "route":"ratings/{userId}"
     },
     {
       "type": "http",
@@ -18,13 +19,11 @@
     },
     {
       "type": "cosmosDB",
-      "name": "ratings",
+      "name": "ratingsItems",
       "databaseName": "customer-ratings",
       "collectionName": "ratings",
       "connectionStringSetting": "CosmosDBConnection",
       "direction": "in",
-      "Id": "{Query.userId}",
-      "PartitionKey": "{Query.partitionKeyValue}"
-    }
+      "sqlQuery": "SELECT * FROM c where c.userId = {userId}"    }
   ]
 }

@@ -1,15 +1,13 @@
 import logging
 
 import azure.functions as func
+import json
 
+def main(req: func.HttpRequest,ratingsItems: func.DocumentList)  -> func.HttpResponse:
 
-def main(req: func.HttpRequest,ratings: func.DocumentList) -> func.HttpResponse:
-    req_body = req.get_json()
-    logging.info("Found Ratings items,%s",ratings)
-    if not req_body:
-        logging.warning("Ratings item not found")
-    else:
-        logging.info("Found Ratings items,%s",
-                     req_body)
+    records =[]
 
-    return func.HttpResponse(req_body)
+    for doc in ratingsItems:
+        records.append(doc.to_json())
+        logging.info(records)
+    return func.HttpResponse(str(records))
