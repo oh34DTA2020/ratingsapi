@@ -12,7 +12,7 @@ env:
   AZURE_RESOURCE_GROUP: 'api3-iceCream-api'     # Resource Group name
 
 jobs:
-  deploy function:
+  deploy_function:
     runs-on: ubuntu-latest
 
     steps:
