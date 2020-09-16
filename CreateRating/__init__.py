@@ -1,7 +1,7 @@
 import logging
 import requests
 import os
-import uuid
+# import uuid
 import json
 from azure.cosmos import exceptions, CosmosClient, PartitionKey
 from datetime import datetime,timezone
@@ -39,7 +39,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # Add a property called id with a GUID value
 
-    id = uuid.uuid4()
+    # id = uuid.uuid4()
 
     logging.info(id)
 
@@ -86,7 +86,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # Return the entire review JSON payload with the newly created id and timestamp
 
-    data = {"id": str(id), "userId": userId, "productId": productId, "timestamp": str(timestamp), 
+    data = {"userId": userId, "productId": productId, "timestamp": str(timestamp), 
     "locationName": locationName, "rating": rating, "userNotes": userNotes}
 
     json_data = json.dumps(data)
