@@ -10,4 +10,10 @@ def main(req: func.HttpRequest,ratingsItems: func.DocumentList)  -> func.HttpRes
     for doc in ratingsItems:
         records.append(doc.to_json())
         logging.info(records)
-    return func.HttpResponse(str(records))
+    if records:
+        return func.HttpResponse(str(records))
+    else:
+        return func.HttpResponse(
+             "Item Not Found",
+             status_code=404
+        )
