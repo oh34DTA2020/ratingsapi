@@ -1,23 +1,34 @@
 
-name: CreateRatings
+name: Publish IceCream Functions
 
 on:
   # Only run manually
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: createRating # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'   # set this to the path to your web app project, defaults to the repository root
-  PYTHON_VERSION: '3.8'                 # set this to the python version to use (supports 3.6, 3.7, 3.8)
+  AZURE_FUNCTIONAPP_NAME: 'api3-icecream-faapi' # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'           # set this to the path to your web app project, defaults to the repository root
+  PYTHON_VERSION: '3.8'                         # set this to the python version to use (supports 3.6, 3.7, 3.8)
+  AZURE_RESOURCE_GROUP: 'api3-iceCream-api'     # Resource Group name
 
 jobs:
-  deploy:
-
+  deploy function:
     runs-on: ubuntu-latest
 
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@master
+
+    - name: Azure CLI Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{secrets.AZSPRATINGSAPI}}
+        enable-AzPSSession: false
+
+    - name: Update Function App settings
+      run: |
+        az functionapp config appsettings set --name ${{AZURE_FUNCTIONAPP_NAME}} --resource-group ${{AZURE_RESOURCE_GROUP}} --settings cosmosendpoint=https://ice-cream-api2-cosmosdb.documents.azure.com:443/
+        az functionapp config appsettings set --name ${{AZURE_FUNCTIONAPP_NAME}} --resource-group ${{AZURE_RESOURCE_GROUP}} --settings cosmoskey=iPJWx9EIPyLCnFOlBWLHTCwR1qhpvMCvuHOCw1KBGLcyyQoQLfDlGbzSzfoa0pYgJnZVUC8wSYKcKKmSCB3Fpg==
 
     - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
       uses: actions/setup-python@v1
@@ -39,3 +50,5 @@ jobs:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
         publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+
+    
