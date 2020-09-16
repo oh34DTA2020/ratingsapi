@@ -1,6 +1,7 @@
 import logging
 import requests
 import uuid
+from datetime import datetime,timezone
 
 import azure.functions as func
 
@@ -37,6 +38,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info(id)
     
     # Add a property called timestamp with the current UTC date time
+    timestamp = datetime.now(timezone.utc)
+
+    logging.info(timestamp)
+
     # Validate that the rating field is an integer from 0 to 5
     # Use a data service to store the ratings information to the backend
     # Return the entire review JSON payload with the newly created id and timestamp
