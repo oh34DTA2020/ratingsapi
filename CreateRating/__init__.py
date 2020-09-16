@@ -61,11 +61,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             if rating > 0 and rating <= 5:
                 logging.info('Rating is a VALID')
             else:
-                return func.HttpResponse("Bad Rating",status_code=404)
+                return func.HttpResponse("Bad Rating",status_code=400)
         else:
-            return func.HttpResponse("Bad Rating",status_code=404)
+            return func.HttpResponse("Bad Rating",status_code=400)
     else:
-        return func.HttpResponse("Missing Rating",status_code=404)
+        return func.HttpResponse("Missing Rating",status_code=400)
 
 
     # Use a data service to store the ratings information to the backend
@@ -95,7 +95,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     container.upsert_item(data)
     
-
     
     if userId:
         return func.HttpResponse(json_data)
