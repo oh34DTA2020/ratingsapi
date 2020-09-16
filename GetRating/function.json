@@ -9,7 +9,8 @@
       "methods": [
         "get",
         "post"
-      ]
+      ],
+      "route":"rating/{id}"
     },
     {
       "type": "http",
@@ -23,8 +24,7 @@
       "collectionName": "ratings",
       "connectionStringSetting": "CosmosDBConnection",
       "direction": "in",
-      "Id": "{Query.ratingId}",
-      "PartitionKey": "{Query.partitionKeyValue}"
+      "sqlQuery": "SELECT * from c where c.id = {id}"
     }
   ]
 }
