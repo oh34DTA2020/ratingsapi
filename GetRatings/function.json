@@ -9,12 +9,21 @@
       "methods": [
         "get",
         "post"
-      ]
+      ],
+      "route":"ratings/{userId}"
     },
     {
       "type": "http",
       "direction": "out",
       "name": "$return"
-    }
+    },
+    {
+      "type": "cosmosDB",
+      "name": "ratingsItems",
+      "databaseName": "customer-ratings",
+      "collectionName": "ratings",
+      "connectionStringSetting": "CosmosDBConnection",
+      "direction": "in",
+      "sqlQuery": "SELECT * FROM c where c.userId = {userId}"    }
   ]
 }
