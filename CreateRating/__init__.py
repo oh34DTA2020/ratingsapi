@@ -32,7 +32,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.info('Product Not Found.')
 
     # Add a property called id with a GUID value
-    id = uuid.uuid4() 
+    id = uuid.uuid4()
+
+    logging.info(id)
+    
     # Add a property called timestamp with the current UTC date time
     # Validate that the rating field is an integer from 0 to 5
     # Use a data service to store the ratings information to the backend
