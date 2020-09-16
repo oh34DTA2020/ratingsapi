@@ -5,6 +5,5 @@
 azure-functions
 
 requests
-uuid
 datetime
 azure_cosmos
