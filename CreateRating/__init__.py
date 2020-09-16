@@ -41,7 +41,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # id = uuid.uuid4()
 
-    logging.info(id)
+    # logging.info(id)
 
     # Add a property called timestamp with the current UTC date time
 
