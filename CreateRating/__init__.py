@@ -75,9 +75,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     logging.info(key)
 
-    # <create_cosmos_client>
+    
     client = CosmosClient(endpoint, key)
-    # </create_cosmos_client>
+    
+    database_name = "customer-ratings"
+    container_name = "ratings"
+    database = client.get_database_client(database_name)
+    container = database.get_container_client(container_name)
 
     # Return the entire review JSON payload with the newly created id and timestamp
 
@@ -87,6 +91,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     json_data = json.dumps(data)
 
     logging.info(json_data)
+
+    container.upsert_item(data)
+    
 
     
     if userId:
