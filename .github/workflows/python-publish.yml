@@ -27,8 +27,8 @@ jobs:
 
     - name: Update Function App settings
       run: |
-        az functionapp config appsettings set --name ${{env.AZURE_FUNCTIONAPP_NAME}} --resource-group ${{env.AZURE_RESOURCE_GROUP}} --settings cosmosendpoint=https://ice-cream-api2-cosmosdb.documents.azure.com:443/
-        az functionapp config appsettings set --name ${{env.AZURE_FUNCTIONAPP_NAME}} --resource-group ${{env.AZURE_RESOURCE_GROUP}} --settings cosmoskey=iPJWx9EIPyLCnFOlBWLHTCwR1qhpvMCvuHOCw1KBGLcyyQoQLfDlGbzSzfoa0pYgJnZVUC8wSYKcKKmSCB3Fpg==
+        az functionapp config appsettings set --name ${{env.AZURE_FUNCTIONAPP_NAME}} --resource-group ${{env.AZURE_RESOURCE_GROUP}} --settings cosmosendpoint=
+        az functionapp config appsettings set --name ${{env.AZURE_FUNCTIONAPP_NAME}} --resource-group ${{env.AZURE_RESOURCE_GROUP}} --settings cosmoskey=
 
     - name: Setup Python ${{ env.PYTHON_VERSION }} Environment
       uses: actions/setup-python@v1
